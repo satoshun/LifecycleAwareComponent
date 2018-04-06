@@ -1,11 +1,9 @@
 package com.github.satoshun.arch.lifecycle.animation
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.OnLifecycleEvent
 import android.view.View
 import android.view.ViewPropertyAnimator
+import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
 
 fun ViewPropertyAnimator.start(target: View, owner: LifecycleOwner) {
   owner.lifecycle.addObserver(LifecycleAwareObserver(
@@ -16,14 +14,4 @@ fun ViewPropertyAnimator.start(target: View, owner: LifecycleOwner) {
       }
   ))
   start()
-}
-
-internal class LifecycleAwareObserver(
-  private val didDestroy: () -> Unit
-) : LifecycleObserver {
-  @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-  fun onDestroy(owner: LifecycleOwner) {
-    didDestroy()
-    owner.lifecycle.removeObserver(this)
-  }
 }
