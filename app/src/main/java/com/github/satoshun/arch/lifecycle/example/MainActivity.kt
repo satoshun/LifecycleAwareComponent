@@ -8,6 +8,7 @@ import android.view.View
 import com.github.satoshun.arch.lifecycle.animation.start
 import com.github.satoshun.arch.lifecycle.os.postDelayed
 
+private const val FINISH_MILLS = 5000L
 private const val BASE_MILLS = 10000L
 
 class MainActivity : AppCompatActivity() {
@@ -20,20 +21,25 @@ class MainActivity : AppCompatActivity() {
         .setDuration(BASE_MILLS)
         .alpha(0f)
         .setListener(object : Animator.AnimatorListener {
+          private var isCancel = false
+
           override fun onAnimationRepeat(animation: Animator?) {
           }
 
-          override fun onAnimationEnd(animation: Animator?) {
-            TODO("never call")
+          override fun onAnimationEnd(animation: Animator) {
+            if (!isCancel) {
+              TODO("never call")
+            }
           }
 
           override fun onAnimationCancel(animation: Animator?) {
+            isCancel = true
           }
 
           override fun onAnimationStart(animation: Animator?) {
           }
         })
-        .start(target, this)
+        .start(this, target)
 
     Handler().postDelayed(this, BASE_MILLS) {
       TODO("never call")
@@ -41,6 +47,6 @@ class MainActivity : AppCompatActivity() {
 
     Handler().postDelayed({
       finish()
-    }, 5000)
+    }, FINISH_MILLS)
   }
 }

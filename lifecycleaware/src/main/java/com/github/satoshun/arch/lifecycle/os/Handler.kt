@@ -5,6 +5,9 @@ import android.os.Handler
 import android.support.annotation.MainThread
 import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
 
+/**
+ * todo
+ */
 @MainThread
 fun Handler.postDelayed(
   owner: LifecycleOwner,
@@ -21,6 +24,9 @@ fun Handler.postDelayed(
   return result
 }
 
+/**
+ * todo
+ */
 @MainThread
 fun Handler.postAtTime(
   owner: LifecycleOwner,
