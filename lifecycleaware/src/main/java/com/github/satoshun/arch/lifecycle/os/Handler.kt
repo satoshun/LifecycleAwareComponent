@@ -6,12 +6,12 @@ import android.support.annotation.MainThread
 import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
 
 @MainThread
-fun Handler.postDelayed(owner: LifecycleOwner, delayMillis: Long, r: () -> Unit) {
-  val action = Runnable(r::invoke)
-  postDelayed(action, delayMillis)
+fun Handler.postDelayed(owner: LifecycleOwner, delayInMillis: Long, action: () -> Unit) {
+  val runnable = Runnable(action::invoke)
+  postDelayed(runnable, delayInMillis)
   owner.lifecycle.addObserver(LifecycleAwareObserver(
       didDestroy = {
-        removeCallbacks(action)
+        removeCallbacks(runnable)
       }
   ))
 }
