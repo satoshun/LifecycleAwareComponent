@@ -7,7 +7,10 @@ import android.support.annotation.MainThread
 import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
 
 /**
- * todo
+ * Version of [Handler.postDelayed]
+ *
+ * @param lifecycleEvent conjunction with specified owner
+ * @return the result of [Handler.postDelayed]
  */
 @MainThread
 fun Handler.postDelayed(
@@ -28,7 +31,10 @@ fun Handler.postDelayed(
 }
 
 /**
- * todo
+ * Version of [Handler.postAtTime]
+ *
+ * @param lifecycleEvent conjunction with specified owner
+ * @return the result of [Handler.postAtTime]
  */
 @MainThread
 fun Handler.postAtTime(
