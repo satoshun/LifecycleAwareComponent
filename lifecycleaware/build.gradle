@@ -32,3 +32,9 @@ dependencies {
 
   androidTestImplementation 'com.google.truth:truth:0.39'
 }
+
+ktlint {
+    version = "0.20.0"
+    android = true
+    reporters = ["CHECKSTYLE"]
+}
