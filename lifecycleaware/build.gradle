@@ -34,7 +34,8 @@ dependencies {
 }
 
 ktlint {
-    version = "0.20.0"
-    android = true
-    reporters = ["CHECKSTYLE"]
+  version = "0.20.0"
+  android = true
+  reporters = ["CHECKSTYLE"]
+  ignoreFailures = true
 }
