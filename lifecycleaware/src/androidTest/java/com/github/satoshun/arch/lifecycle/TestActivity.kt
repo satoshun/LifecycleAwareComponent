@@ -1,6 +1,8 @@
 package com.github.satoshun.arch.lifecycle
 
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.os.Binder
 import android.os.Bundle
@@ -35,5 +37,23 @@ class TestService : Service() {
     isBound = false
     latch?.countDown()
     return super.onUnbind(intent)
+  }
+}
+
+class TestBroadcastReceiver : BroadcastReceiver() {
+  companion object {
+    const val ACTION = "MY_NOTIFICATION"
+  }
+
+  var lastCountDown: Boolean = false
+  var latch: CountDownLatch? = null
+
+  override fun onReceive(context: Context, intent: Intent) {
+    if (latch!!.count == 0L) {
+      lastCountDown = false
+      return
+    }
+    lastCountDown = true
+    latch!!.countDown()
   }
 }
