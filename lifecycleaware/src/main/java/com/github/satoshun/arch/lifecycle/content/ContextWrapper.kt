@@ -1,0 +1,33 @@
+package com.github.satoshun.arch.lifecycle.content
+
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleOwner
+import android.content.ContextWrapper
+import android.content.Intent
+import android.content.ServiceConnection
+import android.support.annotation.MainThread
+import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
+
+/**
+ * Version of [ContextWrapper.bindService]
+ *
+ * @param lifecycleEvent conjunction with specified owner
+ * @return the result of [ContextWrapper.bindService]
+ */
+@MainThread
+fun ContextWrapper.bindService(
+    owner: LifecycleOwner,
+    service: Intent,
+    conn: ServiceConnection,
+    flag: Int,
+    lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
+): Boolean {
+  val result = bindService(service, conn, flag)
+  owner.lifecycle.addObserver(LifecycleAwareObserver(
+      lifecycleEvent,
+      action = {
+        unbindService(conn)
+      }
+  ))
+  return result
+}
