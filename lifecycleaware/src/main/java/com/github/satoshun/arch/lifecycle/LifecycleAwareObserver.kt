@@ -6,11 +6,14 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 
 internal class LifecycleAwareObserver(
-  private val didDestroy: () -> Unit
+    private val lifecycleEvent: Lifecycle.Event,
+    private val action: () -> Unit
 ) : LifecycleObserver {
-  @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-  fun onDestroy(owner: LifecycleOwner) {
-    didDestroy()
-    owner.lifecycle.removeObserver(this)
+  @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
+  fun onDestroy(owner: LifecycleOwner, event: Lifecycle.Event) {
+    if (event == lifecycleEvent) {
+      action()
+      owner.lifecycle.removeObserver(this)
+    }
   }
 }
