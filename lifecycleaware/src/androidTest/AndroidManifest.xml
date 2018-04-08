@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.github.satoshun.arch.lifecycle.kotlin">
+    package="com.github.satoshun.arch.lifecycle.kotlin">
 
   <application android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
     <activity android:name="com.github.satoshun.arch.lifecycle.TestActivity"/>
