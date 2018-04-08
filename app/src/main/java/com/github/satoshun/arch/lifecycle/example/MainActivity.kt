@@ -15,8 +15,7 @@ import android.view.View
 import com.github.satoshun.arch.lifecycle.animation.start
 import com.github.satoshun.arch.lifecycle.content.bindService
 import com.github.satoshun.arch.lifecycle.os.postDelayed
-import java.util.*
-
+import java.util.Random
 
 private const val FINISH_MILLS = 5000L
 private const val BASE_MILLS = 10000L
@@ -74,7 +73,6 @@ class MainActivity : AppCompatActivity() {
     }, FINISH_MILLS)
   }
 }
-
 
 /**
  * https://developer.android.com/guide/components/bound-services.html
