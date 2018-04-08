@@ -1,5 +1,6 @@
 package com.github.satoshun.arch.lifecycle.os
 
+import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.os.Handler
 import android.support.annotation.MainThread
@@ -10,14 +11,16 @@ import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
  */
 @MainThread
 fun Handler.postDelayed(
-  owner: LifecycleOwner,
-  delayInMillis: Long,
-  action: () -> Unit
+    owner: LifecycleOwner,
+    delayInMillis: Long,
+    lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
+    action: () -> Unit
 ): Boolean {
   val runnable = Runnable { action() }
   val result = postDelayed(runnable, delayInMillis)
   owner.lifecycle.addObserver(LifecycleAwareObserver(
-      didDestroy = {
+      lifecycleEvent,
+      action = {
         removeCallbacks(runnable)
       }
   ))
@@ -29,15 +32,17 @@ fun Handler.postDelayed(
  */
 @MainThread
 fun Handler.postAtTime(
-  owner: LifecycleOwner,
-  uptimeMillis: Long,
-  token: Any? = null,
-  action: () -> Unit
+    owner: LifecycleOwner,
+    uptimeMillis: Long,
+    token: Any? = null,
+    lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
+    action: () -> Unit
 ): Boolean {
   val runnable = Runnable { action() }
   val result = postAtTime(runnable, token, uptimeMillis)
   owner.lifecycle.addObserver(LifecycleAwareObserver(
-      didDestroy = {
+      lifecycleEvent,
+      action = {
         removeCallbacks(runnable)
       }
   ))
