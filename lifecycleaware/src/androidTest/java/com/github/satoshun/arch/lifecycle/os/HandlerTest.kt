@@ -11,7 +11,7 @@ import org.junit.Test
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
-class HandlerKtTest {
+class HandlerTest {
 
   @JvmField
   @Rule
