@@ -2,8 +2,10 @@ package com.github.satoshun.arch.lifecycle.content
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
+import android.content.BroadcastReceiver
 import android.content.ContextWrapper
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.ServiceConnection
 import android.support.annotation.MainThread
 import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
@@ -30,4 +32,25 @@ fun ContextWrapper.bindService(
       }
   ))
   return result
+}
+
+/**
+ * Version of [ContextWrapper.registerReceiver]
+ *
+ * todo
+ */
+@MainThread
+fun ContextWrapper.registerReceiver(
+    owner: LifecycleOwner,
+    receiver: BroadcastReceiver,
+    filter: IntentFilter,
+    lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
+) {
+  registerReceiver(receiver, filter)
+  owner.lifecycle.addObserver(LifecycleAwareObserver(
+      lifecycleEvent,
+      action = {
+        unregisterReceiver(receiver)
+      }
+  ))
 }

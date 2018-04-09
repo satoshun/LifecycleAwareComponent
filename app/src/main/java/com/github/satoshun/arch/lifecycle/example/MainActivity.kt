@@ -25,48 +25,58 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_act)
 
-    val target = findViewById<View>(R.id.text)
-    target.animate()
-        .setDuration(BASE_MILLS)
-        .alpha(0f)
-        .setListener(object : Animator.AnimatorListener {
-          private var isCancel = false
+    fun testAnimate() {
+      val target = findViewById<View>(R.id.text)
+      target.animate()
+          .setDuration(BASE_MILLS)
+          .alpha(0f)
+          .setListener(object : Animator.AnimatorListener {
+            private var isCancel = false
 
-          override fun onAnimationRepeat(animation: Animator?) {
-          }
-
-          override fun onAnimationEnd(animation: Animator) {
-            if (!isCancel) {
-              TODO("never call")
+            override fun onAnimationRepeat(animation: Animator?) {
             }
-          }
 
-          override fun onAnimationCancel(animation: Animator?) {
-            isCancel = true
-          }
+            override fun onAnimationEnd(animation: Animator) {
+              if (!isCancel) {
+                TODO("never call")
+              }
+            }
 
-          override fun onAnimationStart(animation: Animator?) {
-          }
-        })
-        .start(this, target)
+            override fun onAnimationCancel(animation: Animator?) {
+              isCancel = true
+            }
 
-    Handler().postDelayed(this, BASE_MILLS) {
-      TODO("never call")
+            override fun onAnimationStart(animation: Animator?) {
+            }
+          })
+          .start(this, target)
     }
 
-    val intent = Intent(this, LocalService::class.java)
-    bindService(
-        this,
-        intent,
-        object : ServiceConnection {
-          override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-          }
+    fun testHanlder() {
+      Handler().postDelayed(this, BASE_MILLS) {
+        TODO("never call")
+      }
+    }
 
-          override fun onServiceDisconnected(name: ComponentName?) {
-          }
-        },
-        Context.BIND_AUTO_CREATE
-    )
+    fun testBindService() {
+      val intent = Intent(this, LocalService::class.java)
+      bindService(
+          this,
+          intent,
+          object : ServiceConnection {
+            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            }
+
+            override fun onServiceDisconnected(name: ComponentName?) {
+            }
+          },
+          Context.BIND_AUTO_CREATE
+      )
+    }
+
+    testAnimate()
+    testHanlder()
+    testBindService()
 
     Handler().postDelayed({
       finish()
