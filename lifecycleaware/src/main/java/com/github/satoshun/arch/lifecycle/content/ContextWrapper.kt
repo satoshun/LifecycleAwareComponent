@@ -9,6 +9,7 @@ import android.content.IntentFilter
 import android.content.ServiceConnection
 import android.support.annotation.MainThread
 import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
+import com.github.satoshun.arch.lifecycle.correspondingEvent
 
 /**
  * Version of [ContextWrapper.bindService]
@@ -22,7 +23,7 @@ fun ContextWrapper.bindService(
     service: Intent,
     conn: ServiceConnection,
     flag: Int,
-    lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
+    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
 ): Boolean {
   val result = bindService(service, conn, flag)
   owner.lifecycle.addObserver(LifecycleAwareObserver(

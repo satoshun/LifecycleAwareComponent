@@ -6,6 +6,7 @@ import android.support.annotation.MainThread
 import android.view.View
 import android.view.ViewPropertyAnimator
 import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
+import com.github.satoshun.arch.lifecycle.correspondingEvent
 
 /**
  * todo
@@ -14,7 +15,7 @@ import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
 fun ViewPropertyAnimator.start(
     owner: LifecycleOwner,
     target: View? = null,
-    lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
+    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
     action: () -> Unit = {
       target?.clearAnimation()
       cancel()

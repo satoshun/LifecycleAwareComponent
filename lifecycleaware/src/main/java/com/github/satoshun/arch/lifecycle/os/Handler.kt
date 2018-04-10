@@ -5,6 +5,7 @@ import android.arch.lifecycle.LifecycleOwner
 import android.os.Handler
 import android.support.annotation.MainThread
 import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
+import com.github.satoshun.arch.lifecycle.correspondingEvent
 
 /**
  * Version of [Handler.postDelayed]
@@ -16,7 +17,7 @@ import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
 fun Handler.postDelayed(
     owner: LifecycleOwner,
     delayInMillis: Long,
-    lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
+    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
     action: () -> Unit
 ): Boolean {
   val runnable = Runnable { action() }
@@ -41,7 +42,7 @@ fun Handler.postAtTime(
     owner: LifecycleOwner,
     uptimeMillis: Long,
     token: Any? = null,
-    lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
+    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
     action: () -> Unit
 ): Boolean {
   val runnable = Runnable { action() }
