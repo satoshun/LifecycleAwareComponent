@@ -14,6 +14,10 @@ internal class LifecycleAwareObserver(
     if (event == lifecycleEvent) {
       action()
       owner.lifecycle.removeObserver(this)
+      return
+    }
+    if (event == Lifecycle.Event.ON_DESTROY) {
+      owner.lifecycle.removeObserver(this)
     }
   }
 }
