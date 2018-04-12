@@ -104,3 +104,28 @@ fun ContextWrapper.registerReceiver(
       }
   ))
 }
+
+/**
+ * Version of [ContextWrapper.registerReceiver]
+ *
+ * todo
+ */
+@RequiresApi(Build.VERSION_CODES.O)
+@MainThread
+fun ContextWrapper.registerReceiver(
+    owner: LifecycleOwner,
+    receiver: BroadcastReceiver,
+    filter: IntentFilter,
+    broadcastPermission: String,
+    scheduler: Handler,
+    flags: Int,
+    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
+) {
+  registerReceiver(receiver, filter, broadcastPermission, scheduler, flags)
+  owner.lifecycle.addObserver(LifecycleAwareObserver(
+      lifecycleEvent,
+      action = {
+        unregisterReceiver(receiver)
+      }
+  ))
+}

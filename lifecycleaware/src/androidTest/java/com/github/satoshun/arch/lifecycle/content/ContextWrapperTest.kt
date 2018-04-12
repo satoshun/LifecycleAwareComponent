@@ -181,6 +181,75 @@ class ContextWrapperTest {
     Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
     Truth.assertThat(br.lastCountDown).isFalse()
   }
+
+  @Test
+  fun bindRegister__to_call_unbindRegister_with_allow_permission_and_flags() {
+    Assume.assumeTrue(android.os.Build.VERSION.SDK_INT >= 26)
+    val onUnbindLatch = CountDownLatch(1)
+    val br = TestBroadcastReceiver().apply {
+      latch = onUnbindLatch
+    }
+    val filter = IntentFilter(TestBroadcastReceiver.ACTION)
+    val allowPermission = Manifest.permission.INTERNET
+    val scheduler = Handler(Looper.getMainLooper())
+    val flags = 0
+    rule.activity.registerReceiver(
+        rule.activity,
+        br,
+        filter,
+        allowPermission,
+        scheduler,
+        flags,
+        Lifecycle.Event.ON_PAUSE
+    )
+
+    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
+
+    rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
+
+    onUnbindLatch.await(2, TimeUnit.SECONDS)
+    Truth.assertThat(onUnbindLatch.count).isEqualTo(0)
+    Truth.assertThat(br.lastCountDown).isTrue()
+
+    rule.activity.simulateLifecycleEvent()
+
+    rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
+
+    // already released BroadcastReceiver
+    Truth.assertThat(br.lastCountDown).isTrue()
+  }
+
+  @Test
+  fun bindRegister__to_call_unbindRegister_with_deny_permission_and_flags() {
+    Assume.assumeTrue(android.os.Build.VERSION.SDK_INT >= 26)
+    val onUnbindLatch = CountDownLatch(1)
+    val br = TestBroadcastReceiver().apply {
+      latch = onUnbindLatch
+    }
+    val filter = IntentFilter(TestBroadcastReceiver.ACTION)
+    val denyPermission = Manifest.permission.CALL_PHONE
+    val scheduler = Handler(Looper.getMainLooper())
+    val flags = 0
+    rule.activity.registerReceiver(
+        rule.activity,
+        br,
+        filter,
+        denyPermission,
+        scheduler,
+        flags,
+        Lifecycle.Event.ON_PAUSE
+    )
+
+    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
+
+    rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
+
+    onUnbindLatch.await(2, TimeUnit.SECONDS)
+
+    // no reach any events
+    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
+    Truth.assertThat(br.lastCountDown).isFalse()
+  }
 }
 
 private fun FragmentActivity.simulateLifecycleEvent(
