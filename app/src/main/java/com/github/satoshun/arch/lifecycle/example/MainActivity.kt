@@ -10,17 +10,28 @@ import android.os.Binder
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.github.satoshun.arch.lifecycle.animation.start
 import com.github.satoshun.arch.lifecycle.content.bindService
 import com.github.satoshun.arch.lifecycle.os.postDelayed
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationAvailability
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import java.util.Random
 
 private const val FINISH_MILLS = 5000L
 private const val BASE_MILLS = 10000L
 
 class MainActivity : AppCompatActivity() {
+
+  private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_act)
@@ -52,7 +63,7 @@ class MainActivity : AppCompatActivity() {
           .start(this, target)
     }
 
-    fun testHanlder() {
+    fun testHandler() {
       Handler().postDelayed(this, BASE_MILLS) {
         TODO("never call")
       }
@@ -74,9 +85,31 @@ class MainActivity : AppCompatActivity() {
       )
     }
 
+    fun testLocationService() {
+      fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+      // todo: Runtime permission
+      fusedLocationProviderClient.requestLocationUpdates(
+          LocationRequest(),
+          object : LocationCallback() {
+            override fun onLocationResult(result: LocationResult?) {
+              result ?: return
+              for (location in result.locations) {
+                Log.d("onLocationResult", location.toString())
+              }
+            }
+
+            override fun onLocationAvailability(availability: LocationAvailability?) {
+              Log.d("onLocationAvailability", availability.toString())
+            }
+          },
+          null
+      )
+    }
+
     testAnimate()
-    testHanlder()
+    testHandler()
     testBindService()
+    testLocationService()
 
     Handler().postDelayed({
       finish()
