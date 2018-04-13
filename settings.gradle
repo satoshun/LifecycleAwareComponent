@@ -1,2 +1,3 @@
-include ':app'
 include ':lifecycleaware'
+include ':lifecycleaware-gms-location'
+include ':app'
