@@ -1,5 +1,6 @@
 package com.github.satoshun.arch.lifecycle.gms.location
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
@@ -13,7 +14,10 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.tasks.Task
 
 @SuppressLint("MissingPermission")
-@RequiresPermission(anyOf = ["android.permission.ACCESS_COARSE_LOCATION", "android.permission.ACCESS_FINE_LOCATION"])
+@RequiresPermission(anyOf = [
+  Manifest.permission.ACCESS_COARSE_LOCATION,
+  Manifest.permission.ACCESS_FINE_LOCATION
+])
 fun FusedLocationProviderClient.requestLocationUpdates(
     owner: LifecycleOwner,
     request: LocationRequest,

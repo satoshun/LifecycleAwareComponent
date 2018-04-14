@@ -29,5 +29,4 @@ class FusedLocationProviderClientsTest {
   }
 }
 
-class TestActivity : AppCompatActivity() {
-}
+class TestActivity : AppCompatActivity()
