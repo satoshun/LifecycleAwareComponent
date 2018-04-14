@@ -1,26 +1,41 @@
 package com.github.satoshun.arch.lifecycle.example
 
+import android.Manifest
 import android.animation.Animator
 import android.app.Service
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.github.satoshun.arch.lifecycle.animation.start
 import com.github.satoshun.arch.lifecycle.content.bindService
+import com.github.satoshun.arch.lifecycle.gms.location.requestLocationUpdates
 import com.github.satoshun.arch.lifecycle.os.postDelayed
-import java.util.Random
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationAvailability
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 
 private const val FINISH_MILLS = 5000L
 private const val BASE_MILLS = 10000L
 
 class MainActivity : AppCompatActivity() {
+
+  private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+  private lateinit var locationCallback: LocationCallback
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_act)
@@ -52,7 +67,7 @@ class MainActivity : AppCompatActivity() {
           .start(this, target)
     }
 
-    fun testHanlder() {
+    fun testHandler() {
       Handler().postDelayed(this, BASE_MILLS) {
         TODO("never call")
       }
@@ -75,12 +90,53 @@ class MainActivity : AppCompatActivity() {
     }
 
     testAnimate()
-    testHanlder()
+    testHandler()
     testBindService()
+    testLocationService()
 
     Handler().postDelayed({
       finish()
     }, FINISH_MILLS)
+  }
+
+  private fun testLocationService() {
+    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+    locationCallback = object : LocationCallback() {
+      override fun onLocationResult(result: LocationResult?) {
+        result ?: return
+        for (location in result.locations) {
+          Log.d("onLocationResult", location.toString())
+        }
+      }
+
+      override fun onLocationAvailability(availability: LocationAvailability?) {
+        Log.d("onLocationAvailability", availability.toString())
+      }
+    }
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+        ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+      fusedLocationProviderClient.requestLocationUpdates(
+          owner = this,
+          request = LocationRequest(),
+          locationCallback = locationCallback
+      )
+    } else {
+      ActivityCompat.requestPermissions(
+          this,
+          arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+          1
+      )
+    }
+  }
+
+  override fun onRequestPermissionsResult(
+      requestCode: Int,
+      permissions: Array<out String>,
+      grantResults: IntArray
+  ) {
+    if (requestCode == 1) {
+      testLocationService()
+    }
   }
 }
 
@@ -90,11 +146,8 @@ class MainActivity : AppCompatActivity() {
 class LocalService : Service() {
   // Binder given to clients
   private val binder = LocalBinder()
-  // Random number generator
-  private val generator = Random()
 
   inner class LocalBinder : Binder() {
-    val service: LocalService get() = this@LocalService
   }
 
   override fun onBind(intent: Intent): IBinder {

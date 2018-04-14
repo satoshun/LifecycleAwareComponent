@@ -5,7 +5,7 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 
-internal class LifecycleAwareObserver(
+class LifecycleAwareObserver(
     private val lifecycleEvent: Lifecycle.Event,
     private val action: () -> Unit
 ) : LifecycleObserver {

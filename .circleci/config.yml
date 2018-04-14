@@ -10,7 +10,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "lifecycleaware/build.gradle" }}
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "lifecycleaware/build.gradle" }}-{{ checksum  "lifecycleaware-gms-location/build.gradle" }}
 
       - run:
           name: Download Dependencies
@@ -18,7 +18,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "lifecycleaware/build.gradle" }}
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "lifecycleaware/build.gradle" }}-{{ checksum  "lifecycleaware-gms-location/build.gradle" }}
 
       - run:
           name: Run Tests
