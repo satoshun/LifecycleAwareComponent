@@ -19,6 +19,7 @@ import android.util.Log
 import android.view.View
 import com.github.satoshun.arch.lifecycle.animation.start
 import com.github.satoshun.arch.lifecycle.content.bindService
+import com.github.satoshun.arch.lifecycle.gms.location.requestLocationUpdates
 import com.github.satoshun.arch.lifecycle.os.postDelayed
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationAvailability
@@ -104,7 +105,7 @@ class MainActivity : AppCompatActivity() {
       override fun onLocationResult(result: LocationResult?) {
         result ?: return
         for (location in result.locations) {
-          Log.d("onLocationCallbackLocationResult", location.toString())
+          Log.d("onLocationResult", location.toString())
         }
       }
 
@@ -115,9 +116,9 @@ class MainActivity : AppCompatActivity() {
     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
         ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
       fusedLocationProviderClient.requestLocationUpdates(
-          LocationRequest(),
-          locationCallback,
-          null
+          owner = this,
+          request = LocationRequest(),
+          locationCallback = locationCallback
       )
     } else {
       ActivityCompat.requestPermissions(
@@ -126,11 +127,6 @@ class MainActivity : AppCompatActivity() {
           1
       )
     }
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    fusedLocationProviderClient.removeLocationUpdates(locationCallback)
   }
 
   override fun onRequestPermissionsResult(

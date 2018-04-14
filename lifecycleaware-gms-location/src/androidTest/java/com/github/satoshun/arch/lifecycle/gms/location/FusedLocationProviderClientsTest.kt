@@ -1,7 +1,8 @@
 package com.github.satoshun.arch.lifecycle.gms.location
 
+import android.support.test.annotation.UiThreadTest
 import android.support.test.rule.ActivityTestRule
-import com.github.satoshun.arch.lifecycle.TestActivity
+import android.support.v7.app.AppCompatActivity
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -12,6 +13,7 @@ class FusedLocationProviderClientsTest {
   @JvmField @Rule val rule = ActivityTestRule<TestActivity>(TestActivity::class.java)
 
   @Test
+  @UiThreadTest
   fun requestLocationUpdates() {
     val client = LocationServices.getFusedLocationProviderClient(rule.activity)
     val request = LocationRequest()
@@ -25,4 +27,7 @@ class FusedLocationProviderClientsTest {
 
     // todo: add test
   }
+}
+
+class TestActivity : AppCompatActivity() {
 }

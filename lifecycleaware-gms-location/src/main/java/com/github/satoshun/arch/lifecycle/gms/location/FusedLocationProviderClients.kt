@@ -20,7 +20,7 @@ fun FusedLocationProviderClient.requestLocationUpdates(
     locationCallback: LocationCallback,
     logger: Looper? = null,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
-) : Task<Void> {
+): Task<Void> {
   val result = requestLocationUpdates(request, locationCallback, logger)
   owner.lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent = lifecycleEvent,
@@ -30,4 +30,3 @@ fun FusedLocationProviderClient.requestLocationUpdates(
   ))
   return result
 }
-
