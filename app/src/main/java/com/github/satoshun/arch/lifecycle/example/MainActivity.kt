@@ -33,6 +33,7 @@ private const val BASE_MILLS = 10000L
 class MainActivity : AppCompatActivity() {
 
   private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+  private lateinit var locationCallback: LocationCallback
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -99,22 +100,23 @@ class MainActivity : AppCompatActivity() {
 
   private fun testLocationService() {
     fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+    locationCallback = object : LocationCallback() {
+      override fun onLocationResult(result: LocationResult?) {
+        result ?: return
+        for (location in result.locations) {
+          Log.d("onLocationCallbackLocationResult", location.toString())
+        }
+      }
+
+      override fun onLocationAvailability(availability: LocationAvailability?) {
+        Log.d("onLocationAvailability", availability.toString())
+      }
+    }
     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
         ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
       fusedLocationProviderClient.requestLocationUpdates(
           LocationRequest(),
-          object : LocationCallback() {
-            override fun onLocationResult(result: LocationResult?) {
-              result ?: return
-              for (location in result.locations) {
-                Log.d("onLocationResult", location.toString())
-              }
-            }
-
-            override fun onLocationAvailability(availability: LocationAvailability?) {
-              Log.d("onLocationAvailability", availability.toString())
-            }
-          },
+          locationCallback,
           null
       )
     } else {
@@ -124,6 +126,11 @@ class MainActivity : AppCompatActivity() {
           1
       )
     }
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    fusedLocationProviderClient.removeLocationUpdates(locationCallback)
   }
 
   override fun onRequestPermissionsResult(

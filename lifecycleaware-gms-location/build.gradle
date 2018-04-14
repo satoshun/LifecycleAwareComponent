@@ -27,8 +27,10 @@ dependencies {
   implementation 'android.arch.lifecycle:viewmodel:1.1.1'
   implementation 'android.arch.lifecycle:livedata:1.1.1'
 
-  testImplementation 'junit:junit:4.12'
-
+  androidTestImplementation 'junit:junit:4.12'
   androidTestImplementation 'com.android.support.test:runner:1.0.1'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-}
+  androidTestImplementation "android.arch.core:core-testing:1.1.1"
+
+  androidTestImplementation 'com.android.support:appcompat-v7:27.1.1'
+  androidTestImplementation 'com.google.truth:truth:0.39'}
