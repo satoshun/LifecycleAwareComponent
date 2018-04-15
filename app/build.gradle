@@ -2,15 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion 27
+  compileSdkVersion Vers.compile_sdk
 
   defaultConfig {
     applicationId "com.github.satoshun.arch.lifecycle.example"
-    minSdkVersion 15
-    targetSdkVersion 27
+    minSdkVersion Vers.min_sdk
+    targetSdkVersion Vers.target_sdk
     versionCode 1
     versionName "1.0"
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
   buildTypes {
@@ -25,23 +24,18 @@ dependencies {
   implementation project(':lifecycleaware')
   implementation project(':lifecycleaware-gms-location')
 
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+  implementation Libs.kotlin
 
-  implementation 'com.android.support:appcompat-v7:27.1.1'
+  implementation Libs.appcompat
   implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-  implementation 'com.google.android.gms:play-services-location:15.0.0'
+  implementation Libs.gms
 
-  implementation 'android.arch.lifecycle:viewmodel:1.1.1'
-  implementation 'android.arch.lifecycle:livedata:1.1.1'
-
-  testImplementation 'junit:junit:4.12'
-
-  androidTestImplementation 'com.android.support.test:runner:1.0.1'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+  implementation Libs.viewmodel
+  implementation Libs.livedata
 }
 
 ktlint {
-  version = "0.21.0"
+  version = Vers.ktlint
   android = true
   reporters = ["CHECKSTYLE"]
   ignoreFailures = true

@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion 27
+  compileSdkVersion Vers.compile_sdk
 
   defaultConfig {
-    minSdkVersion 15
-    targetSdkVersion 27
+    minSdkVersion Vers.min_sdk
+    targetSdkVersion Vers.target_sdk
     versionCode 1
     versionName "1.0"
 
@@ -27,25 +27,25 @@ android {
 dependencies {
   implementation project(':lifecycleaware')
 
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+  implementation Libs.kotlin
 
-  implementation('com.google.android.gms:play-services-location:15.0.0')
-  api 'com.android.support:support-v4:27.1.1'
+  implementation Libs.gms
+  api Libs.support_v4
 
-  implementation 'android.arch.lifecycle:viewmodel:1.1.1'
-  implementation 'android.arch.lifecycle:livedata:1.1.1'
+  implementation Libs.viewmodel
+  implementation Libs.livedata
 
-  androidTestImplementation 'junit:junit:4.12'
-  androidTestImplementation 'com.android.support.test:runner:1.0.1'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-  androidTestImplementation "android.arch.core:core-testing:1.1.1"
+  androidTestImplementation Libs.junit
+  androidTestImplementation Libs.support_test
+  androidTestImplementation Libs.espresso
+  androidTestImplementation Libs.arch_test
+  androidTestImplementation Libs.truth
 
-  androidTestImplementation 'com.android.support:appcompat-v7:27.1.1'
-  androidTestImplementation 'com.google.truth:truth:0.39'
+  androidTestImplementation Libs.appcompat
 }
 
 ktlint {
-  version = "0.21.0"
+  version = Vers.ktlint
   android = true
   reporters = ["CHECKSTYLE"]
   ignoreFailures = true
