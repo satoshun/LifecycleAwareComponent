@@ -17,10 +17,12 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.webkit.WebView
 import com.github.satoshun.arch.lifecycle.animation.start
 import com.github.satoshun.arch.lifecycle.content.bindService
 import com.github.satoshun.arch.lifecycle.gms.location.requestLocationUpdates
 import com.github.satoshun.arch.lifecycle.os.postDelayed
+import com.github.satoshun.arch.lifecycle.webkit.bindLifecycle
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationAvailability
 import com.google.android.gms.location.LocationCallback
@@ -89,10 +91,16 @@ class MainActivity : AppCompatActivity() {
       )
     }
 
+    fun testWebView() {
+      val webView = findViewById<WebView>(R.id.webview)
+      webView.bindLifecycle(this)
+    }
+
     testAnimate()
     testHandler()
     testBindService()
     testLocationService()
+    testWebView()
 
     Handler().postDelayed({
       finish()
