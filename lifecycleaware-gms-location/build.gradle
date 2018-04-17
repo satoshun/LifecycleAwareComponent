@@ -30,7 +30,6 @@ dependencies {
   implementation Libs.kotlin
 
   implementation Libs.gms
-  api Libs.support_v4
 
   implementation Libs.viewmodel
   implementation Libs.livedata
