@@ -30,6 +30,11 @@ dependencies {
   implementation Libs.kotlin
 
   implementation Libs.gms
+  constraints {
+    api(Libs.support_v4) {
+      because "gms v15.0.0 depends to support lib 26.0.1"
+    }
+  }
 
   implementation Libs.viewmodel
   implementation Libs.livedata
