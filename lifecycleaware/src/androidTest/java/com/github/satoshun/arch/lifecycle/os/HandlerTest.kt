@@ -13,9 +13,7 @@ import java.util.concurrent.TimeUnit
 
 class HandlerTest {
 
-  @JvmField
-  @Rule
-  val rule = ActivityTestRule<TestActivity>(TestActivity::class.java)
+  @JvmField @Rule val rule = ActivityTestRule<TestActivity>(TestActivity::class.java)
 
   @Test
   fun postDelayed_call_to_success() {
