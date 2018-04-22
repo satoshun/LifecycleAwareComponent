@@ -1,5 +1,8 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.github.satoshun.arch.lifecycle.webkit
 
+import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.webkit.WebView
 import com.github.satoshun.arch.lifecycle.GenericLifecycleAwareObserver
@@ -9,12 +12,19 @@ import com.github.satoshun.arch.lifecycle.GenericLifecycleAwareObserver
  */
 fun WebView.bindLifecycle(
     owner: LifecycleOwner,
-    onDestroy: () -> Unit = {
-      removeAllViews()
-      destroy()
-    }
+    onDestroy: () -> Unit = defaultAction()
 ) {
-  owner.lifecycle.addObserver(object : GenericLifecycleAwareObserver {
+  bindLifecycle(owner.lifecycle, onDestroy)
+}
+
+/**
+ * todo
+ */
+fun WebView.bindLifecycle(
+    lifecycle: Lifecycle,
+    onDestroy: () -> Unit = defaultAction()
+) {
+  lifecycle.addObserver(object : GenericLifecycleAwareObserver {
     override fun onResume(owner: LifecycleOwner) {
       this@bindLifecycle.onResume()
     }
@@ -27,4 +37,9 @@ fun WebView.bindLifecycle(
       onDestroy()
     }
   })
+}
+
+private inline fun WebView.defaultAction() = {
+  removeAllViews()
+  destroy()
 }

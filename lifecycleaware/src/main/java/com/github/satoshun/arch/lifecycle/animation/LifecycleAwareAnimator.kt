@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.github.satoshun.arch.lifecycle.animation
 
 import android.arch.lifecycle.Lifecycle
@@ -38,7 +40,7 @@ fun ViewPropertyAnimator.start(
   start()
 }
 
-private fun ViewPropertyAnimator.defaultAction(view: View?) = {
+private inline fun ViewPropertyAnimator.defaultAction(view: View?) = {
   view?.clearAnimation()
   cancel()
 }
