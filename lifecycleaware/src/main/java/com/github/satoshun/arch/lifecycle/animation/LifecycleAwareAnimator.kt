@@ -16,14 +16,29 @@ fun ViewPropertyAnimator.start(
     owner: LifecycleOwner,
     target: View? = null,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
-    action: () -> Unit = {
-      target?.clearAnimation()
-      cancel()
-    }
+    action: () -> Unit = defaultAction(target)
 ) {
-  owner.lifecycle.addObserver(LifecycleAwareObserver(
+  start(owner.lifecycle, target, lifecycleEvent, action)
+}
+
+/**
+ * todo
+ */
+@MainThread
+fun ViewPropertyAnimator.start(
+    lifecycle: Lifecycle,
+    target: View? = null,
+    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
+    action: () -> Unit = defaultAction(target)
+) {
+  lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent = lifecycleEvent,
       action = action
   ))
   start()
+}
+
+private fun ViewPropertyAnimator.defaultAction(view: View?) = {
+  view?.clearAnimation()
+  cancel()
 }
