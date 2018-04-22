@@ -28,8 +28,25 @@ fun ContextWrapper.bindService(
     flag: Int,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
 ): Boolean {
+  return bindService(owner.lifecycle, service, conn, flag, lifecycleEvent)
+}
+
+/**
+ * Version of [ContextWrapper.bindService]
+ *
+ * @param lifecycleEvent conjunction with specified owner
+ * @return the result of [ContextWrapper.bindService]
+ */
+@MainThread
+fun ContextWrapper.bindService(
+    lifecycle: Lifecycle,
+    service: Intent,
+    conn: ServiceConnection,
+    flag: Int,
+    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
+): Boolean {
   val result = bindService(service, conn, flag)
-  owner.lifecycle.addObserver(LifecycleAwareObserver(
+  lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,
       action = {
         unbindService(conn)
@@ -49,14 +66,30 @@ fun ContextWrapper.registerReceiver(
     receiver: BroadcastReceiver,
     filter: IntentFilter,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
-) {
-  registerReceiver(receiver, filter)
-  owner.lifecycle.addObserver(LifecycleAwareObserver(
+): Intent {
+  return registerReceiver(owner.lifecycle, receiver, filter, lifecycleEvent)
+}
+
+/**
+ * Version of [ContextWrapper.registerReceiver]
+ *
+ * todo
+ */
+@MainThread
+fun ContextWrapper.registerReceiver(
+    lifecycle: Lifecycle,
+    receiver: BroadcastReceiver,
+    filter: IntentFilter,
+    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
+): Intent {
+  val result = registerReceiver(receiver, filter)
+  lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,
       action = {
         unregisterReceiver(receiver)
       }
   ))
+  return result
 }
 
 /**
@@ -72,14 +105,32 @@ fun ContextWrapper.registerReceiver(
     filter: IntentFilter,
     flags: Int,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
-) {
-  registerReceiver(receiver, filter, flags)
-  owner.lifecycle.addObserver(LifecycleAwareObserver(
+): Intent {
+  return registerReceiver(owner.lifecycle, receiver, filter, flags, lifecycleEvent)
+}
+
+/**
+ * Version of [ContextWrapper.registerReceiver]
+ *
+ * todo
+ */
+@RequiresApi(Build.VERSION_CODES.O)
+@MainThread
+fun ContextWrapper.registerReceiver(
+    lifecycle: Lifecycle,
+    receiver: BroadcastReceiver,
+    filter: IntentFilter,
+    flags: Int,
+    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
+): Intent {
+  val result = registerReceiver(receiver, filter, flags)
+  lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,
       action = {
         unregisterReceiver(receiver)
       }
   ))
+  return result
 }
 
 /**
@@ -95,14 +146,32 @@ fun ContextWrapper.registerReceiver(
     broadcastPermission: String,
     scheduler: Handler,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
-) {
-  registerReceiver(receiver, filter, broadcastPermission, scheduler)
-  owner.lifecycle.addObserver(LifecycleAwareObserver(
+): Intent {
+  return registerReceiver(owner.lifecycle, receiver, filter, broadcastPermission, scheduler, lifecycleEvent)
+}
+
+/**
+ * Version of [ContextWrapper.registerReceiver]
+ *
+ * todo
+ */
+@MainThread
+fun ContextWrapper.registerReceiver(
+    lifecycle: Lifecycle,
+    receiver: BroadcastReceiver,
+    filter: IntentFilter,
+    broadcastPermission: String,
+    scheduler: Handler,
+    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
+): Intent {
+  val result = registerReceiver(receiver, filter, broadcastPermission, scheduler)
+  lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,
       action = {
         unregisterReceiver(receiver)
       }
   ))
+  return result
 }
 
 /**
@@ -120,12 +189,32 @@ fun ContextWrapper.registerReceiver(
     scheduler: Handler,
     flags: Int,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
-) {
-  registerReceiver(receiver, filter, broadcastPermission, scheduler, flags)
-  owner.lifecycle.addObserver(LifecycleAwareObserver(
+): Intent {
+  return registerReceiver(owner.lifecycle, receiver, filter, broadcastPermission, scheduler, flags, lifecycleEvent)
+}
+
+/**
+ * Version of [ContextWrapper.registerReceiver]
+ *
+ * todo
+ */
+@RequiresApi(Build.VERSION_CODES.O)
+@MainThread
+fun ContextWrapper.registerReceiver(
+    lifecycle: Lifecycle,
+    receiver: BroadcastReceiver,
+    filter: IntentFilter,
+    broadcastPermission: String,
+    scheduler: Handler,
+    flags: Int,
+    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
+): Intent {
+  val result = registerReceiver(receiver, filter, broadcastPermission, scheduler, flags)
+  lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,
       action = {
         unregisterReceiver(receiver)
       }
   ))
+  return result
 }
