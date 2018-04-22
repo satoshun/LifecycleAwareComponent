@@ -20,9 +20,25 @@ fun Handler.postDelayed(
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
     action: () -> Unit
 ): Boolean {
+  return postDelayed(owner.lifecycle, delayInMillis, lifecycleEvent, action)
+}
+
+/**
+ * Version of [Handler.postDelayed]
+ *
+ * @param lifecycleEvent conjunction with specified owner
+ * @return the result of [Handler.postDelayed]
+ */
+@MainThread
+fun Handler.postDelayed(
+    lifecycle: Lifecycle,
+    delayInMillis: Long,
+    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
+    action: () -> Unit
+): Boolean {
   val runnable = Runnable { action() }
   val result = postDelayed(runnable, delayInMillis)
-  owner.lifecycle.addObserver(LifecycleAwareObserver(
+  lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,
       action = {
         removeCallbacks(runnable)
@@ -45,9 +61,26 @@ fun Handler.postAtTime(
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
     action: () -> Unit
 ): Boolean {
+  return postAtTime(owner.lifecycle, uptimeMillis, token, lifecycleEvent, action)
+}
+
+/**
+ * Version of [Handler.postAtTime]
+ *
+ * @param lifecycleEvent conjunction with specified owner
+ * @return the result of [Handler.postAtTime]
+ */
+@MainThread
+fun Handler.postAtTime(
+    lifecycle: Lifecycle,
+    uptimeMillis: Long,
+    token: Any? = null,
+    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
+    action: () -> Unit
+): Boolean {
   val runnable = Runnable { action() }
   val result = postAtTime(runnable, token, uptimeMillis)
-  owner.lifecycle.addObserver(LifecycleAwareObserver(
+  lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,
       action = {
         removeCallbacks(runnable)

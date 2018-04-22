@@ -4,7 +4,11 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 
 fun LifecycleOwner.correspondingEvent(): Lifecycle.Event {
-  return when (lifecycle.currentState) {
+  return lifecycle.correspondingEvent()
+}
+
+fun Lifecycle.correspondingEvent(): Lifecycle.Event {
+  return when (currentState) {
     Lifecycle.State.CREATED -> Lifecycle.Event.ON_DESTROY
     Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
     Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
