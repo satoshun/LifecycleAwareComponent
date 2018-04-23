@@ -10,7 +10,7 @@ object Vers {
 }
 
 object Libs {
-  val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jre7:${Vers.kotlin}"
+  val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Vers.kotlin}"
 
   val viewmodel = "android.arch.lifecycle:viewmodel:1.1.1"
   val livedata = "android.arch.lifecycle:livedata:1.1.1"
