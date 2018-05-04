@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.github.satoshun.arch.lifecycle.view
 
 import android.arch.lifecycle.Lifecycle
@@ -8,28 +10,24 @@ import com.github.satoshun.arch.lifecycle.correspondingEvent
 
 /**
  * Version of [View.postDelayed]
- *
- * todo
  */
-fun View.postDelayed(
+inline fun View.postDelayed(
     owner: LifecycleOwner,
     delayInMillis: Long,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
-    action: () -> Unit
+    noinline action: () -> Unit
 ): Boolean {
   return postDelayed(owner.lifecycle, delayInMillis, lifecycleEvent, action)
 }
 
 /**
  * Version of [View.postDelayed]
- *
- * todo
  */
-fun View.postDelayed(
+inline fun View.postDelayed(
     lifecycle: Lifecycle,
     delayInMillis: Long,
     lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
-    action: () -> Unit
+    crossinline action: () -> Unit
 ): Boolean {
   val runnable = Runnable { action() }
   val result = postDelayed(runnable, delayInMillis)

@@ -11,7 +11,7 @@ import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
 import com.github.satoshun.arch.lifecycle.correspondingEvent
 
 /**
- * todo
+ * Version of [ViewPropertyAnimator.start]
  */
 @MainThread
 fun ViewPropertyAnimator.start(
@@ -24,7 +24,7 @@ fun ViewPropertyAnimator.start(
 }
 
 /**
- * todo
+ * Version of [ViewPropertyAnimator.start]
  */
 @MainThread
 fun ViewPropertyAnimator.start(

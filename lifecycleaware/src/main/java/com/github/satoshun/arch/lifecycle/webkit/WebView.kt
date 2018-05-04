@@ -8,7 +8,7 @@ import android.webkit.WebView
 import com.github.satoshun.arch.lifecycle.GenericLifecycleAwareObserver
 
 /**
- * todo
+ * Handle lifecycle between Lifecycle and WebView.
  */
 fun WebView.bindLifecycle(
     owner: LifecycleOwner,
@@ -18,7 +18,7 @@ fun WebView.bindLifecycle(
 }
 
 /**
- * todo
+ * Handle lifecycle between Lifecycle and WebView.
  */
 fun WebView.bindLifecycle(
     lifecycle: Lifecycle,

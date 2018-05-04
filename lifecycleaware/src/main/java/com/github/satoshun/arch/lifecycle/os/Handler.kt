@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.github.satoshun.arch.lifecycle.os
 
 import android.arch.lifecycle.Lifecycle
@@ -14,11 +16,11 @@ import com.github.satoshun.arch.lifecycle.correspondingEvent
  * @return the result of [Handler.postDelayed]
  */
 @MainThread
-fun Handler.postDelayed(
+inline fun Handler.postDelayed(
     owner: LifecycleOwner,
     delayInMillis: Long,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
-    action: () -> Unit
+    noinline action: () -> Unit
 ): Boolean {
   return postDelayed(owner.lifecycle, delayInMillis, lifecycleEvent, action)
 }
@@ -30,11 +32,11 @@ fun Handler.postDelayed(
  * @return the result of [Handler.postDelayed]
  */
 @MainThread
-fun Handler.postDelayed(
+inline fun Handler.postDelayed(
     lifecycle: Lifecycle,
     delayInMillis: Long,
     lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
-    action: () -> Unit
+    crossinline action: () -> Unit
 ): Boolean {
   val runnable = Runnable { action() }
   val result = postDelayed(runnable, delayInMillis)
@@ -54,12 +56,12 @@ fun Handler.postDelayed(
  * @return the result of [Handler.postAtTime]
  */
 @MainThread
-fun Handler.postAtTime(
+inline fun Handler.postAtTime(
     owner: LifecycleOwner,
     uptimeMillis: Long,
     token: Any? = null,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
-    action: () -> Unit
+    noinline action: () -> Unit
 ): Boolean {
   return postAtTime(owner.lifecycle, uptimeMillis, token, lifecycleEvent, action)
 }
@@ -71,12 +73,12 @@ fun Handler.postAtTime(
  * @return the result of [Handler.postAtTime]
  */
 @MainThread
-fun Handler.postAtTime(
+inline fun Handler.postAtTime(
     lifecycle: Lifecycle,
     uptimeMillis: Long,
     token: Any? = null,
     lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
-    action: () -> Unit
+    crossinline action: () -> Unit
 ): Boolean {
   val runnable = Runnable { action() }
   val result = postAtTime(runnable, token, uptimeMillis)

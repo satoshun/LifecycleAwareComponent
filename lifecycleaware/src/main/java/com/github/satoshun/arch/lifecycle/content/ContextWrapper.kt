@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.github.satoshun.arch.lifecycle.content
 
 import android.arch.lifecycle.Lifecycle
@@ -21,7 +23,7 @@ import com.github.satoshun.arch.lifecycle.correspondingEvent
  * @return the result of [ContextWrapper.bindService]
  */
 @MainThread
-fun ContextWrapper.bindService(
+inline fun ContextWrapper.bindService(
     owner: LifecycleOwner,
     service: Intent,
     conn: ServiceConnection,
@@ -38,7 +40,7 @@ fun ContextWrapper.bindService(
  * @return the result of [ContextWrapper.bindService]
  */
 @MainThread
-fun ContextWrapper.bindService(
+inline fun ContextWrapper.bindService(
     lifecycle: Lifecycle,
     service: Intent,
     conn: ServiceConnection,
@@ -57,11 +59,9 @@ fun ContextWrapper.bindService(
 
 /**
  * Version of [ContextWrapper.registerReceiver]
- *
- * todo
  */
 @MainThread
-fun ContextWrapper.registerReceiver(
+inline fun ContextWrapper.registerReceiver(
     owner: LifecycleOwner,
     receiver: BroadcastReceiver,
     filter: IntentFilter,
@@ -72,11 +72,9 @@ fun ContextWrapper.registerReceiver(
 
 /**
  * Version of [ContextWrapper.registerReceiver]
- *
- * todo
  */
 @MainThread
-fun ContextWrapper.registerReceiver(
+inline fun ContextWrapper.registerReceiver(
     lifecycle: Lifecycle,
     receiver: BroadcastReceiver,
     filter: IntentFilter,
@@ -94,12 +92,10 @@ fun ContextWrapper.registerReceiver(
 
 /**
  * Version of [ContextWrapper.registerReceiver]
- *
- * todo
  */
 @RequiresApi(Build.VERSION_CODES.O)
 @MainThread
-fun ContextWrapper.registerReceiver(
+inline fun ContextWrapper.registerReceiver(
     owner: LifecycleOwner,
     receiver: BroadcastReceiver,
     filter: IntentFilter,
@@ -111,12 +107,10 @@ fun ContextWrapper.registerReceiver(
 
 /**
  * Version of [ContextWrapper.registerReceiver]
- *
- * todo
  */
 @RequiresApi(Build.VERSION_CODES.O)
 @MainThread
-fun ContextWrapper.registerReceiver(
+inline fun ContextWrapper.registerReceiver(
     lifecycle: Lifecycle,
     receiver: BroadcastReceiver,
     filter: IntentFilter,
@@ -135,11 +129,9 @@ fun ContextWrapper.registerReceiver(
 
 /**
  * Version of [ContextWrapper.registerReceiver]
- *
- * todo
  */
 @MainThread
-fun ContextWrapper.registerReceiver(
+inline fun ContextWrapper.registerReceiver(
     owner: LifecycleOwner,
     receiver: BroadcastReceiver,
     filter: IntentFilter,
@@ -152,11 +144,9 @@ fun ContextWrapper.registerReceiver(
 
 /**
  * Version of [ContextWrapper.registerReceiver]
- *
- * todo
  */
 @MainThread
-fun ContextWrapper.registerReceiver(
+inline fun ContextWrapper.registerReceiver(
     lifecycle: Lifecycle,
     receiver: BroadcastReceiver,
     filter: IntentFilter,
@@ -176,12 +166,10 @@ fun ContextWrapper.registerReceiver(
 
 /**
  * Version of [ContextWrapper.registerReceiver]
- *
- * todo
  */
 @RequiresApi(Build.VERSION_CODES.O)
 @MainThread
-fun ContextWrapper.registerReceiver(
+inline fun ContextWrapper.registerReceiver(
     owner: LifecycleOwner,
     receiver: BroadcastReceiver,
     filter: IntentFilter,
@@ -195,12 +183,10 @@ fun ContextWrapper.registerReceiver(
 
 /**
  * Version of [ContextWrapper.registerReceiver]
- *
- * todo
  */
 @RequiresApi(Build.VERSION_CODES.O)
 @MainThread
-fun ContextWrapper.registerReceiver(
+inline fun ContextWrapper.registerReceiver(
     lifecycle: Lifecycle,
     receiver: BroadcastReceiver,
     filter: IntentFilter,
