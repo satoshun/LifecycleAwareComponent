@@ -1,5 +1,18 @@
+buildscript {
+  dependencies {
+    classpath Libs.android_plugin
+    classpath Libs.kotlin_plugin
+    classpath Libs.dokka_plugin
+  }
+}
+
+plugins {
+  id "org.jlleitschuh.gradle.ktlint" version "3.3.0"
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka-android'
 
 android {
   compileSdkVersion Vers.compile_sdk
@@ -54,3 +67,5 @@ ktlint {
   reporters = ["CHECKSTYLE"]
   ignoreFailures = true
 }
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
