@@ -21,6 +21,32 @@ references:
       TERM: dumb
       _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
+  danger_config: &danger_config
+    working_directory: *workspace
+    docker:
+      - image: ruby:2.4.4
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace
+  persist_workspace: &persist_workspace
+    persist_to_workspace:
+      root: *workspace
+      paths:
+        - lifecycleaware/build/intermediates
+        - lifecycleaware/build/outputs/androidTest-results
+        - lifecycleaware/build/outputs/apk
+        - lifecycleaware/build/test-results
+        - lifecycleaware/build/reports
+        - lifecycleaware-gms-location/build/intermediates
+        - lifecycleaware-gms-location/build/outputs/androidTest-results
+        - lifecycleaware-gms-location/build/outputs/apk
+        - lifecycleaware-gms-location/build/test-results
+        - lifecycleaware-gms-location/build/reports
+        - Gemfile
+        - Gemfile.lock
+        - Dangerfile
+        - .git
+
 jobs:
   build:
     <<: *android_config
@@ -39,27 +65,22 @@ jobs:
           destination: reports
       - store_test_results:
           path: lifecycleaware/build/test-results
+      - *persist_workspace
   danger:
-    <<: *android_config
+    <<: *danger_config
     steps:
-      - checkout
-      - run:
-          command: gem update --system 2.4.8
-          when: always
+      - *attach_workspace
       - run:
           command: gem install bundler
-          when: always
       - restore_cache:
           key: gems-{{ checksum "Gemfile.lock" }}
       - run:
           command: bundle install --path vendor/bundle
-          when: always
       - save_cache:
           paths: vendor/bundle
           key: gems-{{ checksum "Gemfile.lock" }}
       - run:
           command: bundle exec danger
-          when: always
 
 workflows:
   version: 2
