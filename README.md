@@ -3,7 +3,7 @@
 Handling Lifecycles with Lifecycle-Aware Components. This library respects with [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html).
 
 ```kotlin
-// This postDelayed obeys Lifecycle of myActivity.  
+// This postDelayed obeys Lifecycle of myActivity.
 handler.postDelayed(
   owner = myActivity,
   delayInMillis = 100L
@@ -12,12 +12,16 @@ handler.postDelayed(
 }
 ```
 
-## Getting started
+## Download
 
-The first step is to add into your build.gradle. 
-
+Platform:
 ```groovy
-// todo: not released yet
+implementation 'com.github.satoshun.lifecycleaware:lifecycleaware:0.0.1'
+```
+
+'gms-location' library:
+```groovy
+implementation 'com.github.satoshun.lifecycleaware:lifecycleaware-gms-location:0.0.1'
 ```
 
 ## Supported classes
@@ -38,4 +42,4 @@ The first step is to add into your build.gradle.
     - if subscribing during onStart, it will terminate on onStop.
     - if subscribing during onResume, it will terminate on onPause.
     - if subscribing during onPause or onStop or onDestroy, it will terminate on onDestroy.
-  - It inspired from [RxLifecycle](https://github.com/trello/RxLifecycle).    
+  - It inspired from [RxLifecycle](https://github.com/trello/RxLifecycle).

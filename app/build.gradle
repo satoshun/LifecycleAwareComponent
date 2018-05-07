@@ -30,6 +30,8 @@ android {
 dependencies {
   implementation project(':lifecycleaware')
   implementation project(':lifecycleaware-gms-location')
+//  implementation 'com.github.satoshun.lifecycleaware:lifecycleaware:0.0.1'
+//  implementation 'com.github.satoshun.lifecycleaware:lifecycleaware-gms-location:0.0.1'
 
   implementation Libs.kotlin
 
