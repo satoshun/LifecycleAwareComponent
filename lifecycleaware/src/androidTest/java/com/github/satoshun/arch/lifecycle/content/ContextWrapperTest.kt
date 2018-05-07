@@ -16,7 +16,9 @@ import android.support.v4.app.FragmentActivity
 import com.github.satoshun.arch.lifecycle.TestActivity
 import com.github.satoshun.arch.lifecycle.TestBroadcastReceiver
 import com.github.satoshun.arch.lifecycle.TestService
-import com.google.common.truth.Truth
+import com.github.satoshun.arch.lifecycle.isEqualTo
+import com.github.satoshun.arch.lifecycle.isFalse
+import com.github.satoshun.arch.lifecycle.isTrue
 import org.junit.Assume
 import org.junit.Rule
 import org.junit.Test
@@ -48,12 +50,12 @@ class ContextWrapperTest {
     )
 
     onServiceConnectedLatch.await()
-    Truth.assertThat(testService!!.isBound).isTrue()
+    testService!!.isBound.isTrue()
 
     rule.finishActivity()
 
     onUnbindLatch.await()
-    Truth.assertThat(testService!!.isBound).isFalse()
+    testService!!.isBound.isFalse()
   }
 
   @Test
@@ -70,20 +72,20 @@ class ContextWrapperTest {
         Lifecycle.Event.ON_PAUSE
     )
 
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
+    onUnbindLatch.count.isEqualTo(1)
 
     rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
 
     onUnbindLatch.await()
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(0)
-    Truth.assertThat(br.lastCountDown).isTrue()
+    onUnbindLatch.count.isEqualTo(0)
+    br.lastCountDown.isTrue()
 
     rule.activity.simulateLifecycleEvent()
 
     rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
 
     // already released BroadcastReceiver
-    Truth.assertThat(br.lastCountDown).isTrue()
+    br.lastCountDown.isTrue()
   }
 
   @Test
@@ -103,20 +105,20 @@ class ContextWrapperTest {
         Lifecycle.Event.ON_PAUSE
     )
 
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
+    onUnbindLatch.count.isEqualTo(1)
 
     rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
 
     onUnbindLatch.await()
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(0)
-    Truth.assertThat(br.lastCountDown).isTrue()
+    onUnbindLatch.count.isEqualTo(0)
+    br.lastCountDown.isTrue()
 
     rule.activity.simulateLifecycleEvent()
 
     rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
 
     // already released BroadcastReceiver
-    Truth.assertThat(br.lastCountDown).isTrue()
+    br.lastCountDown.isTrue()
   }
 
   @Test
@@ -137,20 +139,20 @@ class ContextWrapperTest {
         Lifecycle.Event.ON_PAUSE
     )
 
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
+    onUnbindLatch.count.isEqualTo(1)
 
     rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
 
     onUnbindLatch.await(2, TimeUnit.SECONDS)
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(0)
-    Truth.assertThat(br.lastCountDown).isTrue()
+    onUnbindLatch.count.isEqualTo(0)
+    br.lastCountDown.isTrue()
 
     rule.activity.simulateLifecycleEvent()
 
     rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
 
     // already released BroadcastReceiver
-    Truth.assertThat(br.lastCountDown).isTrue()
+    br.lastCountDown.isTrue()
   }
 
   @Test
@@ -171,15 +173,15 @@ class ContextWrapperTest {
         Lifecycle.Event.ON_PAUSE
     )
 
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
+    onUnbindLatch.count.isEqualTo(1)
 
     rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
 
     onUnbindLatch.await(2, TimeUnit.SECONDS)
 
     // no reach any events
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
-    Truth.assertThat(br.lastCountDown).isFalse()
+    onUnbindLatch.count.isEqualTo(1)
+    br.lastCountDown.isFalse()
   }
 
   @Test
@@ -203,20 +205,20 @@ class ContextWrapperTest {
         Lifecycle.Event.ON_PAUSE
     )
 
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
+    onUnbindLatch.count.isEqualTo(1)
 
     rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
 
     onUnbindLatch.await(2, TimeUnit.SECONDS)
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(0)
-    Truth.assertThat(br.lastCountDown).isTrue()
+    onUnbindLatch.count.isEqualTo(0)
+    br.lastCountDown.isTrue()
 
     rule.activity.simulateLifecycleEvent()
 
     rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
 
     // already released BroadcastReceiver
-    Truth.assertThat(br.lastCountDown).isTrue()
+    br.lastCountDown.isTrue()
   }
 
   @Test
@@ -240,15 +242,15 @@ class ContextWrapperTest {
         Lifecycle.Event.ON_PAUSE
     )
 
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
+    onUnbindLatch.count.isEqualTo(1)
 
     rule.activity.sendBroadcast(Intent(TestBroadcastReceiver.ACTION))
 
     onUnbindLatch.await(2, TimeUnit.SECONDS)
 
     // no reach any events
-    Truth.assertThat(onUnbindLatch.count).isEqualTo(1)
-    Truth.assertThat(br.lastCountDown).isFalse()
+    onUnbindLatch.count.isEqualTo(1)
+    br.lastCountDown.isFalse()
   }
 }
 

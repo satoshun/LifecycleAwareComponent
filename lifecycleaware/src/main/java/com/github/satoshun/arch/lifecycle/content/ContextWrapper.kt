@@ -66,7 +66,7 @@ inline fun ContextWrapper.registerReceiver(
     receiver: BroadcastReceiver,
     filter: IntentFilter,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
-): Intent {
+): Intent? {
   return registerReceiver(owner.lifecycle, receiver, filter, lifecycleEvent)
 }
 
@@ -79,7 +79,7 @@ inline fun ContextWrapper.registerReceiver(
     receiver: BroadcastReceiver,
     filter: IntentFilter,
     lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
-): Intent {
+): Intent? {
   val result = registerReceiver(receiver, filter)
   lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,
@@ -138,7 +138,7 @@ inline fun ContextWrapper.registerReceiver(
     broadcastPermission: String,
     scheduler: Handler,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
-): Intent {
+): Intent? {
   return registerReceiver(owner.lifecycle, receiver, filter, broadcastPermission, scheduler, lifecycleEvent)
 }
 
@@ -153,7 +153,7 @@ inline fun ContextWrapper.registerReceiver(
     broadcastPermission: String,
     scheduler: Handler,
     lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
-): Intent {
+): Intent? {
   val result = registerReceiver(receiver, filter, broadcastPermission, scheduler)
   lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,
@@ -177,7 +177,7 @@ inline fun ContextWrapper.registerReceiver(
     scheduler: Handler,
     flags: Int,
     lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
-): Intent {
+): Intent? {
   return registerReceiver(owner.lifecycle, receiver, filter, broadcastPermission, scheduler, flags, lifecycleEvent)
 }
 
@@ -194,7 +194,7 @@ inline fun ContextWrapper.registerReceiver(
     scheduler: Handler,
     flags: Int,
     lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
-): Intent {
+): Intent? {
   val result = registerReceiver(receiver, filter, broadcastPermission, scheduler, flags)
   lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,

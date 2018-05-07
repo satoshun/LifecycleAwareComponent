@@ -8,15 +8,23 @@ import android.os.Binder
 import android.os.Bundle
 import android.os.IBinder
 import android.support.v7.app.AppCompatActivity
-import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import java.util.concurrent.CountDownLatch
 
 class TestActivity : AppCompatActivity() {
 
-  val rootView: View get() = findViewById(android.R.id.content)
+  lateinit var rootView: ViewGroup
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    rootView = LinearLayout(this).apply {
+      layoutParams = ViewGroup.LayoutParams(
+          ViewGroup.LayoutParams.MATCH_PARENT,
+          ViewGroup.LayoutParams.MATCH_PARENT
+      )
+    }
+    setContentView(rootView)
   }
 }
 

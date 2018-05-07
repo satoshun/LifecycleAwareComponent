@@ -1,3 +1,4 @@
 include ':lifecycleaware'
 include ':lifecycleaware-gms-location'
+include ':testing-utils'
 include ':app'
