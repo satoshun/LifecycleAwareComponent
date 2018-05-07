@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Binder
-import android.os.Bundle
 import android.os.IBinder
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -14,10 +13,6 @@ import java.util.concurrent.CountDownLatch
 class TestActivity : AppCompatActivity() {
 
   val rootView: View get() = findViewById(android.R.id.content)
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-  }
 }
 
 class TestService : Service() {

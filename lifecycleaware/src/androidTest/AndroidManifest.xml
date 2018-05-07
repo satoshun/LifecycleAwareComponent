@@ -2,9 +2,4 @@
     package="com.github.satoshun.arch.lifecycle.kotlin">
 
   <uses-permission android:name="android.permission.INTERNET"/>
-
-  <application android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-    <activity android:name="com.github.satoshun.arch.lifecycle.TestActivity"/>
-    <service android:name="com.github.satoshun.arch.lifecycle.TestService" android:exported="false"/>
-  </application>
 </manifest>
