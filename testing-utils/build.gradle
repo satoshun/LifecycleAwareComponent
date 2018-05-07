@@ -13,11 +13,6 @@ android {
 
   defaultConfig {
     minSdkVersion Vers.min_sdk
-    targetSdkVersion Vers.target_sdk
-  }
-
-  libraryVariants.all {
-    it.generateBuildConfig.enabled = false
   }
 }
 
