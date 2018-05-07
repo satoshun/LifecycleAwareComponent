@@ -1,48 +1,92 @@
 version: 2
-jobs:
-  build:
-    working_directory: ~/code
+references:
+  cache_key: &cache_key
+    key: jars--{{ checksum  "buildSrc/build.gradle.kts" }}-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "lifecycleaware/build.gradle" }}-{{ checksum  "lifecycleaware-gms-location/build.gradle" }}
+  restore_cache: &restore_cache
+    restore_cache:
+      <<: *cache_key
+  save_cache: &save_cache
+    save_cache:
+      <<: *cache_key
+      paths:
+        - ~/.gradle
+        - ~/.m2
+  workspace: &workspace
+    ~/workspace
+  android_config: &android_config
+    working_directory: *workspace
     docker:
       - image: circleci/android:api-27-alpha
     environment:
-      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+      _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
+  danger_config: &danger_config
+    working_directory: *workspace
+    docker:
+      - image: ruby:2.4.4
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace
+  persist_workspace: &persist_workspace
+    persist_to_workspace:
+      root: *workspace
+      paths:
+        - lifecycleaware/build/intermediates
+        - lifecycleaware/build/outputs/androidTest-results
+        - lifecycleaware/build/outputs/apk
+        - lifecycleaware/build/test-results
+        - lifecycleaware/build/reports
+        - lifecycleaware-gms-location/build/intermediates
+        - lifecycleaware-gms-location/build/outputs/androidTest-results
+        - lifecycleaware-gms-location/build/outputs/apk
+        - lifecycleaware-gms-location/build/test-results
+        - lifecycleaware-gms-location/build/reports
+        - Gemfile
+        - Gemfile.lock
+        - Dangerfile
+        - .git
+
+jobs:
+  build:
+    <<: *android_config
     steps:
       - checkout
-
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "lifecycleaware/build.gradle" }}-{{ checksum  "lifecycleaware-gms-location/build.gradle" }}
-
+      - *restore_cache
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum  "lifecycleaware/build.gradle" }}-{{ checksum  "lifecycleaware-gms-location/build.gradle" }}
-
+      - *save_cache
       - run:
           name: Run Tests
-          command: ./gradlew lint ktlintCheck test
+          command: ./gradlew ktlintCheck test
       - store_artifacts:
           path: lifecycleaware/build/reports
           destination: reports
       - store_test_results:
           path: lifecycleaware/build/test-results
-
-      - run:
-          command: gem update --system 2.4.8
-          when: always
+      - *persist_workspace
+  danger:
+    <<: *danger_config
+    steps:
+      - *attach_workspace
       - run:
           command: gem install bundler
-          when: always
       - restore_cache:
           key: gems-{{ checksum "Gemfile.lock" }}
       - run:
           command: bundle install --path vendor/bundle
-          when: always
       - save_cache:
           paths: vendor/bundle
           key: gems-{{ checksum "Gemfile.lock" }}
       - run:
           command: bundle exec danger
-          when: always
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - danger:
+          requires:
+            - build
