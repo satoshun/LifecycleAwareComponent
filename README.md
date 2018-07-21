@@ -19,7 +19,10 @@ handler.postDelayed(
 The first step is to add into your build.gradle.
 
 ```groovy
-// todo: not released yet
+implementation 'com.github.satoshun.lifecycleaware:lifecycleaware:${latest-version}'
+
+// for gms
+implementation 'com.github.satoshun.lifecycleaware:lifecycleaware-gms-location:${latest-version}'
 ```
 
 ## Supported classes
