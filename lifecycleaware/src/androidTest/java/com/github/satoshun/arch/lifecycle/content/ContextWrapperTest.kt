@@ -253,7 +253,7 @@ class ContextWrapperTest {
 }
 
 private fun FragmentActivity.simulateLifecycleEvent(
-    event: Lifecycle.Event = Lifecycle.Event.ON_PAUSE
+  event: Lifecycle.Event = Lifecycle.Event.ON_PAUSE
 ) {
   // todo: Is it best to simulate a ON_PAUSE lifecycle Event?
   (lifecycle as LifecycleRegistry).handleLifecycleEvent(event)

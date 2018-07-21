@@ -17,10 +17,10 @@ import com.github.satoshun.arch.lifecycle.correspondingEvent
  */
 @MainThread
 inline fun Handler.postDelayed(
-    owner: LifecycleOwner,
-    delayInMillis: Long,
-    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
-    noinline action: () -> Unit
+  owner: LifecycleOwner,
+  delayInMillis: Long,
+  lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
+  noinline action: () -> Unit
 ): Boolean {
   return postDelayed(owner.lifecycle, delayInMillis, lifecycleEvent, action)
 }
@@ -33,10 +33,10 @@ inline fun Handler.postDelayed(
  */
 @MainThread
 inline fun Handler.postDelayed(
-    lifecycle: Lifecycle,
-    delayInMillis: Long,
-    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
-    crossinline action: () -> Unit
+  lifecycle: Lifecycle,
+  delayInMillis: Long,
+  lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
+  crossinline action: () -> Unit
 ): Boolean {
   val runnable = Runnable { action() }
   val result = postDelayed(runnable, delayInMillis)
@@ -57,11 +57,11 @@ inline fun Handler.postDelayed(
  */
 @MainThread
 inline fun Handler.postAtTime(
-    owner: LifecycleOwner,
-    uptimeMillis: Long,
-    token: Any? = null,
-    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
-    noinline action: () -> Unit
+  owner: LifecycleOwner,
+  uptimeMillis: Long,
+  token: Any? = null,
+  lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
+  noinline action: () -> Unit
 ): Boolean {
   return postAtTime(owner.lifecycle, uptimeMillis, token, lifecycleEvent, action)
 }
@@ -74,11 +74,11 @@ inline fun Handler.postAtTime(
  */
 @MainThread
 inline fun Handler.postAtTime(
-    lifecycle: Lifecycle,
-    uptimeMillis: Long,
-    token: Any? = null,
-    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
-    crossinline action: () -> Unit
+  lifecycle: Lifecycle,
+  uptimeMillis: Long,
+  token: Any? = null,
+  lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
+  crossinline action: () -> Unit
 ): Boolean {
   val runnable = Runnable { action() }
   val result = postAtTime(runnable, token, uptimeMillis)

@@ -15,10 +15,10 @@ import com.github.satoshun.arch.lifecycle.correspondingEvent
  */
 @MainThread
 fun ViewPropertyAnimator.start(
-    owner: LifecycleOwner,
-    target: View? = null,
-    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
-    action: () -> Unit = defaultAction(target)
+  owner: LifecycleOwner,
+  target: View? = null,
+  lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
+  action: () -> Unit = defaultAction(target)
 ) {
   start(owner.lifecycle, target, lifecycleEvent, action)
 }
@@ -28,15 +28,17 @@ fun ViewPropertyAnimator.start(
  */
 @MainThread
 fun ViewPropertyAnimator.start(
-    lifecycle: Lifecycle,
-    target: View? = null,
-    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
-    action: () -> Unit = defaultAction(target)
+  lifecycle: Lifecycle,
+  target: View? = null,
+  lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
+  action: () -> Unit = defaultAction(target)
 ) {
-  lifecycle.addObserver(LifecycleAwareObserver(
-      lifecycleEvent = lifecycleEvent,
-      action = action
-  ))
+  lifecycle.addObserver(
+      LifecycleAwareObserver(
+          lifecycleEvent = lifecycleEvent,
+          action = action
+      )
+  )
   start()
 }
 

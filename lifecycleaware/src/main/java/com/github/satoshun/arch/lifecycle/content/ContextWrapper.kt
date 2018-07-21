@@ -24,11 +24,11 @@ import com.github.satoshun.arch.lifecycle.correspondingEvent
  */
 @MainThread
 inline fun ContextWrapper.bindService(
-    owner: LifecycleOwner,
-    service: Intent,
-    conn: ServiceConnection,
-    flag: Int,
-    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
+  owner: LifecycleOwner,
+  service: Intent,
+  conn: ServiceConnection,
+  flag: Int,
+  lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
 ): Boolean {
   return bindService(owner.lifecycle, service, conn, flag, lifecycleEvent)
 }
@@ -41,11 +41,11 @@ inline fun ContextWrapper.bindService(
  */
 @MainThread
 inline fun ContextWrapper.bindService(
-    lifecycle: Lifecycle,
-    service: Intent,
-    conn: ServiceConnection,
-    flag: Int,
-    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
+  lifecycle: Lifecycle,
+  service: Intent,
+  conn: ServiceConnection,
+  flag: Int,
+  lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
 ): Boolean {
   val result = bindService(service, conn, flag)
   lifecycle.addObserver(LifecycleAwareObserver(
@@ -62,10 +62,10 @@ inline fun ContextWrapper.bindService(
  */
 @MainThread
 inline fun ContextWrapper.registerReceiver(
-    owner: LifecycleOwner,
-    receiver: BroadcastReceiver,
-    filter: IntentFilter,
-    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
+  owner: LifecycleOwner,
+  receiver: BroadcastReceiver,
+  filter: IntentFilter,
+  lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
 ): Intent {
   return registerReceiver(owner.lifecycle, receiver, filter, lifecycleEvent)
 }
@@ -75,10 +75,10 @@ inline fun ContextWrapper.registerReceiver(
  */
 @MainThread
 inline fun ContextWrapper.registerReceiver(
-    lifecycle: Lifecycle,
-    receiver: BroadcastReceiver,
-    filter: IntentFilter,
-    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
+  lifecycle: Lifecycle,
+  receiver: BroadcastReceiver,
+  filter: IntentFilter,
+  lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
 ): Intent {
   val result = registerReceiver(receiver, filter)
   lifecycle.addObserver(LifecycleAwareObserver(
@@ -96,11 +96,11 @@ inline fun ContextWrapper.registerReceiver(
 @RequiresApi(Build.VERSION_CODES.O)
 @MainThread
 inline fun ContextWrapper.registerReceiver(
-    owner: LifecycleOwner,
-    receiver: BroadcastReceiver,
-    filter: IntentFilter,
-    flags: Int,
-    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
+  owner: LifecycleOwner,
+  receiver: BroadcastReceiver,
+  filter: IntentFilter,
+  flags: Int,
+  lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
 ): Intent {
   return registerReceiver(owner.lifecycle, receiver, filter, flags, lifecycleEvent)
 }
@@ -111,11 +111,11 @@ inline fun ContextWrapper.registerReceiver(
 @RequiresApi(Build.VERSION_CODES.O)
 @MainThread
 inline fun ContextWrapper.registerReceiver(
-    lifecycle: Lifecycle,
-    receiver: BroadcastReceiver,
-    filter: IntentFilter,
-    flags: Int,
-    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
+  lifecycle: Lifecycle,
+  receiver: BroadcastReceiver,
+  filter: IntentFilter,
+  flags: Int,
+  lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
 ): Intent {
   val result = registerReceiver(receiver, filter, flags)
   lifecycle.addObserver(LifecycleAwareObserver(
@@ -132,12 +132,12 @@ inline fun ContextWrapper.registerReceiver(
  */
 @MainThread
 inline fun ContextWrapper.registerReceiver(
-    owner: LifecycleOwner,
-    receiver: BroadcastReceiver,
-    filter: IntentFilter,
-    broadcastPermission: String,
-    scheduler: Handler,
-    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
+  owner: LifecycleOwner,
+  receiver: BroadcastReceiver,
+  filter: IntentFilter,
+  broadcastPermission: String,
+  scheduler: Handler,
+  lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
 ): Intent {
   return registerReceiver(owner.lifecycle, receiver, filter, broadcastPermission, scheduler, lifecycleEvent)
 }
@@ -147,12 +147,12 @@ inline fun ContextWrapper.registerReceiver(
  */
 @MainThread
 inline fun ContextWrapper.registerReceiver(
-    lifecycle: Lifecycle,
-    receiver: BroadcastReceiver,
-    filter: IntentFilter,
-    broadcastPermission: String,
-    scheduler: Handler,
-    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
+  lifecycle: Lifecycle,
+  receiver: BroadcastReceiver,
+  filter: IntentFilter,
+  broadcastPermission: String,
+  scheduler: Handler,
+  lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
 ): Intent {
   val result = registerReceiver(receiver, filter, broadcastPermission, scheduler)
   lifecycle.addObserver(LifecycleAwareObserver(
@@ -170,13 +170,13 @@ inline fun ContextWrapper.registerReceiver(
 @RequiresApi(Build.VERSION_CODES.O)
 @MainThread
 inline fun ContextWrapper.registerReceiver(
-    owner: LifecycleOwner,
-    receiver: BroadcastReceiver,
-    filter: IntentFilter,
-    broadcastPermission: String,
-    scheduler: Handler,
-    flags: Int,
-    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
+  owner: LifecycleOwner,
+  receiver: BroadcastReceiver,
+  filter: IntentFilter,
+  broadcastPermission: String,
+  scheduler: Handler,
+  flags: Int,
+  lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
 ): Intent {
   return registerReceiver(owner.lifecycle, receiver, filter, broadcastPermission, scheduler, flags, lifecycleEvent)
 }
@@ -187,13 +187,13 @@ inline fun ContextWrapper.registerReceiver(
 @RequiresApi(Build.VERSION_CODES.O)
 @MainThread
 inline fun ContextWrapper.registerReceiver(
-    lifecycle: Lifecycle,
-    receiver: BroadcastReceiver,
-    filter: IntentFilter,
-    broadcastPermission: String,
-    scheduler: Handler,
-    flags: Int,
-    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
+  lifecycle: Lifecycle,
+  receiver: BroadcastReceiver,
+  filter: IntentFilter,
+  broadcastPermission: String,
+  scheduler: Handler,
+  flags: Int,
+  lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
 ): Intent {
   val result = registerReceiver(receiver, filter, broadcastPermission, scheduler, flags)
   lifecycle.addObserver(LifecycleAwareObserver(
