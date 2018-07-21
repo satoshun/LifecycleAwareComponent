@@ -12,10 +12,10 @@ import com.github.satoshun.arch.lifecycle.correspondingEvent
  * Version of [View.postDelayed]
  */
 inline fun View.postDelayed(
-    owner: LifecycleOwner,
-    delayInMillis: Long,
-    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
-    noinline action: () -> Unit
+  owner: LifecycleOwner,
+  delayInMillis: Long,
+  lifecycleEvent: Lifecycle.Event = owner.correspondingEvent(),
+  noinline action: () -> Unit
 ): Boolean {
   return postDelayed(owner.lifecycle, delayInMillis, lifecycleEvent, action)
 }
@@ -24,10 +24,10 @@ inline fun View.postDelayed(
  * Version of [View.postDelayed]
  */
 inline fun View.postDelayed(
-    lifecycle: Lifecycle,
-    delayInMillis: Long,
-    lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
-    crossinline action: () -> Unit
+  lifecycle: Lifecycle,
+  delayInMillis: Long,
+  lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent(),
+  crossinline action: () -> Unit
 ): Boolean {
   val runnable = Runnable { action() }
   val result = postDelayed(runnable, delayInMillis)

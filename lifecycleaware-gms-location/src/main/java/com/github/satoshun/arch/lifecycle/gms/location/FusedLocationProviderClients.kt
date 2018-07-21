@@ -15,20 +15,20 @@ import com.google.android.gms.tasks.Task
 
 /**
  * Version of [FusedLocationProviderClient.requestLocationUpdates]
- *
- * todo
  */
 @SuppressLint("MissingPermission")
-@RequiresPermission(anyOf = [
-  Manifest.permission.ACCESS_COARSE_LOCATION,
-  Manifest.permission.ACCESS_FINE_LOCATION
-])
+@RequiresPermission(
+    anyOf = [
+      Manifest.permission.ACCESS_COARSE_LOCATION,
+      Manifest.permission.ACCESS_FINE_LOCATION
+    ]
+)
 fun FusedLocationProviderClient.requestLocationUpdates(
-    owner: LifecycleOwner,
-    request: LocationRequest,
-    locationCallback: LocationCallback,
-    logger: Looper? = null,
-    lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
+  owner: LifecycleOwner,
+  request: LocationRequest,
+  locationCallback: LocationCallback,
+  logger: Looper? = null,
+  lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
 ): Task<Void> {
   val result = requestLocationUpdates(request, locationCallback, logger)
   owner.lifecycle.addObserver(LifecycleAwareObserver(

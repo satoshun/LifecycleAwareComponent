@@ -121,8 +121,15 @@ class MainActivity : AppCompatActivity() {
         Log.d("onLocationAvailability", availability.toString())
       }
     }
-    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-        ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+    if (ContextCompat.checkSelfPermission(
+          this,
+          Manifest.permission.ACCESS_COARSE_LOCATION
+      ) == PackageManager.PERMISSION_GRANTED ||
+      ContextCompat.checkSelfPermission(
+          this,
+          Manifest.permission.ACCESS_FINE_LOCATION
+      ) == PackageManager.PERMISSION_GRANTED
+    ) {
       fusedLocationProviderClient.requestLocationUpdates(
           owner = this,
           request = LocationRequest(),
@@ -138,9 +145,9 @@ class MainActivity : AppCompatActivity() {
   }
 
   override fun onRequestPermissionsResult(
-      requestCode: Int,
-      permissions: Array<out String>,
-      grantResults: IntArray
+    requestCode: Int,
+    permissions: Array<out String>,
+    grantResults: IntArray
   ) {
     if (requestCode == 1) {
       testLocationService()
@@ -155,8 +162,7 @@ class LocalService : Service() {
   // Binder given to clients
   private val binder = LocalBinder()
 
-  inner class LocalBinder : Binder() {
-  }
+  inner class LocalBinder : Binder()
 
   override fun onBind(intent: Intent): IBinder {
     return binder

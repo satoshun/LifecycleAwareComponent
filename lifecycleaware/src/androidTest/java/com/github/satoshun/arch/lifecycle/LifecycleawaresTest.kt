@@ -26,8 +26,8 @@ class LifecycleawaresTest {
   }
 }
 
-class TestLifecycle(
-    private val currentState: Lifecycle.State
+internal class TestLifecycle(
+  private val currentState: Lifecycle.State
 ) : Lifecycle() {
   override fun addObserver(observer: LifecycleObserver) {
     TODO("not implemented")

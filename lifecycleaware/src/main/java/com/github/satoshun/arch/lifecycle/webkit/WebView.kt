@@ -11,8 +11,8 @@ import com.github.satoshun.arch.lifecycle.GenericLifecycleAwareObserver
  * Handle lifecycle between Lifecycle and WebView.
  */
 fun WebView.bindLifecycle(
-    owner: LifecycleOwner,
-    onDestroy: () -> Unit = defaultAction()
+  owner: LifecycleOwner,
+  onDestroy: () -> Unit = defaultAction()
 ) {
   bindLifecycle(owner.lifecycle, onDestroy)
 }
@@ -21,8 +21,8 @@ fun WebView.bindLifecycle(
  * Handle lifecycle between Lifecycle and WebView.
  */
 fun WebView.bindLifecycle(
-    lifecycle: Lifecycle,
-    onDestroy: () -> Unit = defaultAction()
+  lifecycle: Lifecycle,
+  onDestroy: () -> Unit = defaultAction()
 ) {
   lifecycle.addObserver(object : GenericLifecycleAwareObserver {
     override fun onResume(owner: LifecycleOwner) {
