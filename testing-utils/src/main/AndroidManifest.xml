@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.github.satoshun.arch.lifecycle.testingutils">
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+
+  <application android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+    <activity android:name="com.github.satoshun.arch.lifecycle.TestActivity"/>
+    <service android:name="com.github.satoshun.arch.lifecycle.TestService"/>
+  </application>
+</manifest>
