@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.satoshun.lifecycleaware/lifecycleaware/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.satoshun.lifecycleaware/lifecycleaware)
+
 # LifecycleAwareComponent
 
 Handling Lifecycles with Lifecycle-Aware Components. This library respects with [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html).
@@ -12,16 +14,15 @@ handler.postDelayed(
 }
 ```
 
-## Download
+## Getting started
 
-Platform:
-```groovy
-implementation 'com.github.satoshun.lifecycleaware:lifecycleaware:0.0.1'
-```
+The first step is to add into your build.gradle.
 
-'gms-location' library:
 ```groovy
-implementation 'com.github.satoshun.lifecycleaware:lifecycleaware-gms-location:0.0.1'
+implementation 'com.github.satoshun.lifecycleaware:lifecycleaware:${latest-version}'
+
+// for gms
+implementation 'com.github.satoshun.lifecycleaware:lifecycleaware-gms-location:${latest-version}'
 ```
 
 ## Supported classes
