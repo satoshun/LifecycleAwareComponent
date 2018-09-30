@@ -101,7 +101,7 @@ inline fun ContextWrapper.registerReceiver(
   filter: IntentFilter,
   flags: Int,
   lifecycleEvent: Lifecycle.Event = owner.correspondingEvent()
-): Intent {
+): Intent? {
   return registerReceiver(owner.lifecycle, receiver, filter, flags, lifecycleEvent)
 }
 
@@ -116,7 +116,7 @@ inline fun ContextWrapper.registerReceiver(
   filter: IntentFilter,
   flags: Int,
   lifecycleEvent: Lifecycle.Event = lifecycle.correspondingEvent()
-): Intent {
+): Intent? {
   val result = registerReceiver(receiver, filter, flags)
   lifecycle.addObserver(LifecycleAwareObserver(
       lifecycleEvent,
