@@ -2,8 +2,8 @@
 
 package com.github.satoshun.arch.lifecycle
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 
 inline fun LifecycleOwner.correspondingEvent(): Lifecycle.Event {
   return lifecycle.correspondingEvent()

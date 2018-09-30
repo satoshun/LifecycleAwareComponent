@@ -25,7 +25,7 @@ android {
 
     multiDexEnabled true // for test
 
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
   libraryVariants.all {
@@ -41,24 +41,13 @@ dependencies {
   api project(':lifecycleaware')
 
   implementation Libs.kotlin
-
   implementation Libs.gms
-  constraints {
-    api(Libs.support_v4) {
-      because "gms v15.0.0 depends to support lib 26.0.1"
-    }
-  }
+  implementation Libs.task
 
   implementation Libs.viewmodel
   implementation Libs.livedata
 
-  androidTestImplementation Libs.junit
-  androidTestImplementation Libs.support_test
-  androidTestImplementation Libs.espresso
-  androidTestImplementation Libs.arch_test
-  androidTestImplementation Libs.truth
-
-  androidTestImplementation Libs.appcompat
+  androidTestImplementation project(':testing-utils')
 }
 
 ktlint {

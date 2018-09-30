@@ -2,10 +2,10 @@ package com.github.satoshun.arch.lifecycle.gms.location
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
 import android.os.Looper
-import android.support.annotation.RequiresPermission
+import androidx.annotation.RequiresPermission
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
 import com.github.satoshun.arch.lifecycle.correspondingEvent
 import com.google.android.gms.location.FusedLocationProviderClient

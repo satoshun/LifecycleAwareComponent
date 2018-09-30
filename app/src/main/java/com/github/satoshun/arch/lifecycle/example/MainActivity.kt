@@ -12,12 +12,12 @@ import android.os.Binder
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.webkit.WebView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.github.satoshun.arch.lifecycle.animation.start
 import com.github.satoshun.arch.lifecycle.content.bindService
 import com.github.satoshun.arch.lifecycle.gms.location.requestLocationUpdates
