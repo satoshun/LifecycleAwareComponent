@@ -1,8 +1,6 @@
 package com.github.satoshun.arch.lifecycle.content
 
 import android.Manifest
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleRegistry
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -11,8 +9,10 @@ import android.content.ServiceConnection
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
-import android.support.test.rule.ActivityTestRule
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleRegistry
+import androidx.test.rule.ActivityTestRule
 import com.github.satoshun.arch.lifecycle.TestActivity
 import com.github.satoshun.arch.lifecycle.TestBroadcastReceiver
 import com.github.satoshun.arch.lifecycle.TestService

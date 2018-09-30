@@ -3,7 +3,7 @@ package com.github.satoshun.arch.lifecycle.os
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
-import android.support.test.rule.ActivityTestRule
+import androidx.test.rule.ActivityTestRule
 import com.github.satoshun.arch.lifecycle.TestActivity
 import com.google.common.truth.Truth
 import org.junit.Rule

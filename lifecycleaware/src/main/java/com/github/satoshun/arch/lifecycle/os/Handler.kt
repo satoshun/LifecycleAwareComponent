@@ -2,10 +2,10 @@
 
 package com.github.satoshun.arch.lifecycle.os
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
 import android.os.Handler
-import android.support.annotation.MainThread
+import androidx.annotation.MainThread
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
 import com.github.satoshun.arch.lifecycle.correspondingEvent
 

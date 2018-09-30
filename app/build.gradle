@@ -36,7 +36,6 @@ dependencies {
   implementation Libs.kotlin
 
   implementation Libs.appcompat
-  implementation 'com.android.support.constraint:constraint-layout:1.1.0'
   implementation Libs.gms
 
   implementation Libs.viewmodel

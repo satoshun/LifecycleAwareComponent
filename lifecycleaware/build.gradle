@@ -24,7 +24,7 @@ android {
     versionCode 1
     versionName "1.0"
 
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
   libraryVariants.all {
@@ -39,13 +39,6 @@ dependencies {
   implementation Libs.livedata
 
   androidTestImplementation project(':testing-utils')
-  androidTestImplementation Libs.junit
-  androidTestImplementation Libs.support_test
-  androidTestImplementation Libs.espresso
-  androidTestImplementation Libs.arch_test
-
-  androidTestImplementation Libs.appcompat
-  androidTestImplementation Libs.truth
 }
 
 ktlint {

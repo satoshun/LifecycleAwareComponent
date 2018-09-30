@@ -2,9 +2,9 @@
 
 package com.github.satoshun.arch.lifecycle.webkit
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
 import android.webkit.WebView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.github.satoshun.arch.lifecycle.GenericLifecycleAwareObserver
 
 /**

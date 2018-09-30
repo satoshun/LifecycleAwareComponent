@@ -24,9 +24,9 @@ dependencies {
   api Libs.livedata
 
   api Libs.junit
-  api Libs.support_test
+  api Libs.test_rule
+  api Libs.test_runner
   api Libs.espresso
-  api Libs.arch_test
 
   api Libs.appcompat
   api Libs.truth

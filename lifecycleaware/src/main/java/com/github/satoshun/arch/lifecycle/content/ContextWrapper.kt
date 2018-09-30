@@ -2,8 +2,6 @@
 
 package com.github.satoshun.arch.lifecycle.content
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
 import android.content.BroadcastReceiver
 import android.content.ContextWrapper
 import android.content.Intent
@@ -11,8 +9,10 @@ import android.content.IntentFilter
 import android.content.ServiceConnection
 import android.os.Build
 import android.os.Handler
-import android.support.annotation.MainThread
-import android.support.annotation.RequiresApi
+import androidx.annotation.MainThread
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.github.satoshun.arch.lifecycle.LifecycleAwareObserver
 import com.github.satoshun.arch.lifecycle.correspondingEvent
 
